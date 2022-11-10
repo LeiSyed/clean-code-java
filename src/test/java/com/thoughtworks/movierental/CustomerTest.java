@@ -8,19 +8,20 @@ import java.util.ArrayList;
 public class CustomerTest {
 
     @Test
-    public void test(){
-        Customer customer = new Customer("Harry Davidson");
-        Movie firstMovie = new Movie("Drink Hard 2", Movie.REGULAR);
-        Movie secondMovie = new Movie("Adventures of Pooja", Movie.CHILDRENS);
-        Rental firstRental = new Rental(firstMovie, 15);
-        Rental secondRental = new Rental(secondMovie, 10);
+    public void shouldGenerateStatementForCustomer() {
+        Customer customer = new Customer("Bruce Wayne");
+        customer.addRental(new Rental(new Movie("Spider-man: No way home", Movie.NEW_RELEASE), 4));
+        customer.addRental(new Rental(new Movie("Spider-man: Homecoming", Movie.REGULAR), 4));
+        customer.addRental(new Rental(new Movie("Spider-man: Animated", Movie.CHILDRENS), 4));
 
-        customer.addRental(firstRental);
-        customer.addRental(secondRental);
         String statement = customer.statement();
-        Assert.assertNotNull(statement);
-        System.out.println(statement);
-    }
 
+        Assert.assertEquals("Rental Record for Bruce Wayne\n" +
+                "\tSpider-man: No way home\t12.0\n" +
+                "\tSpider-man: Homecoming\t5.0\n" +
+                "\tSpider-man: Animated\t3.0\n" +
+                "Amount owed is 20.0\n" +
+                "You earned 4 frequent renter points", statement);
+    }
 
 }
