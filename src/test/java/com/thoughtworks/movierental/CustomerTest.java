@@ -20,7 +20,6 @@ public class CustomerTest {
         String statement = customer.statement();
         Assert.assertNotNull(statement);
         System.out.println(statement);
-        //here's a test comment
     }
 
 
