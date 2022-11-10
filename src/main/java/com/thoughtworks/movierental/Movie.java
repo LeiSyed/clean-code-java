@@ -5,24 +5,24 @@ public class Movie {
     public static final int REGULAR = 0;
     public static final int NEW_RELEASE = 1;
 
-    private String title;
-    private int category;
+    private final String movieTitle;
+    private int priceCategory;
 
-    public Movie(String title, int category) {
-        this.title = title;
-        this.category = category;
+    public Movie(String movieTitle, int priceCategory) {
+        this.movieTitle = movieTitle;
+        this.priceCategory = priceCategory;
     }
 
-    public int getCategory() {
-        return category;
+    public int getPriceCategory() {
+        return priceCategory;
     }
 
-    public void setCategory(int arg) {
-        category = arg;
+    public void setPriceCategory(int priceCode) {
+        priceCategory = priceCode;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMovieTitle() {
+        return movieTitle;
     }
 
 }
