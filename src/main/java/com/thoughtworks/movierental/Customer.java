@@ -21,16 +21,12 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
         StringBuilder outputStatement = new StringBuilder("Rental Record for ");
         outputStatement.append(getCustomerName());
         outputStatement.append('\n');
         for (Rental eachRental : rentals) {
             double amountOfRental = 0;
             amountOfRental = Rental.calculateRentalAmount(eachRental);
-            frequentRenterPoints = accumulateFrequentRenterPoints(frequentRenterPoints, eachRental);
-
             //show figures for this rental
             outputStatement
                     .append("\t")
@@ -38,28 +34,39 @@ public class Customer {
                     .append("\t")
                     .append(amountOfRental)
                     .append("\n");
-            totalAmount += amountOfRental;
         }
 
         //add footer lines result
         outputStatement
                 .append("Amount owed is ")
-                .append(totalAmount)
+                .append(calcTotal())
                 .append("\n");
 
         outputStatement.append("You earned ")
-                .append(frequentRenterPoints)
+                .append(calcFrequentRenterPoints())
                 .append(" frequent renter points");
 
         return outputStatement.toString();
     }
 
-    private static int accumulateFrequentRenterPoints(int frequentRenterPoints, Rental each) {
-        frequentRenterPoints++;
-        if ((each.getMovie().getPriceCategory() == Movie.NEW_RELEASE)
-                &&
-                each.getDaysRented() > 1) frequentRenterPoints++;
+    private int calcFrequentRenterPoints() {
+        int frequentRenterPoints = 0;
+        for (Rental rental : rentals){
+            frequentRenterPoints++;
+            if ((rental.getMovie().getPriceCategory() == Movie.NEW_RELEASE)
+                    &&
+                    rental.getDaysRented() > 1) frequentRenterPoints++;
+        }
         return frequentRenterPoints;
+    }
+
+    private double calcTotal(){
+        double amount = 0;
+
+        for (Rental rental : rentals){
+            amount += Rental.calculateRentalAmount(rental);
+        }
+        return amount;
     }
 
 }
