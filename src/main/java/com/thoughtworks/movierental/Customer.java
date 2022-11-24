@@ -25,18 +25,14 @@ public class Customer {
         outputStatement.append(getCustomerName());
         outputStatement.append('\n');
         for (Rental eachRental : rentals) {
-            double amountOfRental = 0;
-            amountOfRental = Rental.calculateRentalAmount(eachRental);
             //show figures for this rental
             outputStatement
                     .append("\t")
                     .append(eachRental.getMovie().getMovieTitle())
                     .append("\t")
-                    .append(amountOfRental)
+                    .append(eachRental.calculateRentalAmount())
                     .append("\n");
         }
-
-        //add footer lines result
         outputStatement
                 .append("Amount owed is ")
                 .append(calcTotal())
@@ -47,6 +43,31 @@ public class Customer {
                 .append(" frequent renter points");
 
         return outputStatement.toString();
+    }
+
+    public String HtmlStatement() {
+        StringBuilder outputHtml = new StringBuilder("<h1>Rental Record for <b>");
+        outputHtml.append(getCustomerName())
+                .append("</b></h1><p>");
+        for (Rental eachRental : rentals) {
+            //show figures for this rental
+           outputHtml
+                    .append(eachRental.getMovie().getMovieTitle())
+                    .append(" <b>")
+                    .append(eachRental.calculateRentalAmount())
+                    .append("</b><br>");
+        }
+        outputHtml
+                .append("Amount owed is <b>")
+                .append(calcTotal())
+                .append("</b><br>");
+        outputHtml
+                .append("You earned <b>")
+                .append(calcFrequentRenterPoints())
+                .append("</b> frequent renter points</p>");
+
+        return outputHtml.toString();
+
     }
 
     private int calcFrequentRenterPoints() {
@@ -64,7 +85,7 @@ public class Customer {
         double amount = 0;
 
         for (Rental rental : rentals){
-            amount += Rental.calculateRentalAmount(rental);
+            amount += rental.calculateRentalAmount();
         }
         return amount;
     }
