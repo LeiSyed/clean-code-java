@@ -10,11 +10,23 @@ public enum Category {
                 rentalPrice += (daysRented - 2) * 1.5;
             return rentalPrice;
         }
+        @Override
+        int getFrequentPoints(int daysRented){
+            return 1;
+        }
     },
     NEW_RELEASE{
         @Override
         double amountFor(int daysRented){
             return daysRented * 3;
+        }
+        @Override
+        int getFrequentPoints(int daysRented){
+            int renterPoints = 1;
+            if (daysRented > 1){
+                return renterPoints + 1;
+            }
+            return renterPoints;
         }
     },
     CHILDRENS{
@@ -26,11 +38,19 @@ public enum Category {
                 rentalPrice += (daysRented - 3) * 1.5;
             return rentalPrice;
         }
+        @Override
+        int getFrequentPoints(int daysRented){
+            return 1;
+        }
             },
     BLU_RAY{
         @Override
         double amountFor(int daysRented){
             return daysRented * 4.0;
+        }
+        @Override
+        int getFrequentPoints(int daysRented){
+            return daysRented * 3;
         }
     };
 
@@ -38,5 +58,9 @@ public enum Category {
     double amountFor(int daysRented){
         return daysRented * 1.0;
     }
+    int getFrequentPoints(){
+        return 1;
+    }
 
+    abstract int getFrequentPoints(int daysRented);
 }

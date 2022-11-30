@@ -28,4 +28,8 @@ public class Movie {
         rentalAmount += category.amountFor(rental.getDaysRented());
         return rentalAmount;
     }
+
+    public int getFrequentRenterPoints(int daysRented) {
+        return category.getFrequentPoints(daysRented);
+    }
 }

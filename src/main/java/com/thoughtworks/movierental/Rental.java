@@ -10,22 +10,11 @@ public class Rental {
         this.daysRented = daysRented;
     }
 
-    public int getFrequentRenterPoints(int frequentRenterPoints) {
-        if ((getMovie().getCategory() == Category.NEW_RELEASE)
-                &&
-                getDaysRented() > 1) frequentRenterPoints++;
-        return frequentRenterPoints;
-    }
-
     public int getDaysRented() {
         return daysRented;
     }
 
     public Movie getMovie() {
         return movie;
-    }
-
-    public double getAmount(Movie movie) {
-        return movie.calculateRentalAmount(this);
     }
 }

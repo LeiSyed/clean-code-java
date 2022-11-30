@@ -73,8 +73,7 @@ public class Customer {
     public int calcFrequentRenterPoints(List<Rental> rentals) {
         int frequentRenterPoints = 0;
         for (Rental rental : rentals){
-            frequentRenterPoints++;
-            frequentRenterPoints = rental.getFrequentRenterPoints(frequentRenterPoints);
+            frequentRenterPoints += rental.movie.getFrequentRenterPoints(rental.getDaysRented());
         }
         return frequentRenterPoints;
     }
