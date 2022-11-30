@@ -3,8 +3,6 @@ package com.thoughtworks.movierental;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public class CustomerTest {
 
     @Test
@@ -24,7 +22,7 @@ public class CustomerTest {
     @Test
     public void shouldGenerateHtmlOutputForCustomer() {
         Customer customer = createCustomer();
-        String outputHtml = customer.HtmlStatement();
+        String outputHtml = customer.htmlStatement();
 
         Assert.assertEquals("<h1>Rental Record for <b>Bruce Wayne</b></h1>" +
                 "<p>Spider-man: No way home <b>12.0</b><br>" +
@@ -36,9 +34,9 @@ public class CustomerTest {
 
     private static Customer createCustomer() {
         Customer customer = new Customer("Bruce Wayne");
-        customer.addRental(new Rental(new Movie("Spider-man: No way home", Movie.NEW_RELEASE), 4));
-        customer.addRental(new Rental(new Movie("Spider-man: Homecoming", Movie.REGULAR), 4));
-        customer.addRental(new Rental(new Movie("Spider-man: Animated", Movie.CHILDRENS), 4));
+        customer.addRental(new Rental(new Movie("Spider-man: No way home", Category.NEW_RELEASE), 4));
+        customer.addRental(new Rental(new Movie("Spider-man: Homecoming", Category.REGULAR), 4));
+        customer.addRental(new Rental(new Movie("Spider-man: Animated", Category.CHILDRENS), 4));
         return customer;
     }
 }

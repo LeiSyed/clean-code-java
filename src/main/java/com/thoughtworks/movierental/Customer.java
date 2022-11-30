@@ -30,7 +30,7 @@ public class Customer {
                     .append("\t")
                     .append(eachRental.getMovie().getMovieTitle())
                     .append("\t")
-                    .append(eachRental.calculateRentalAmount())
+                    .append(eachRental.movie.calculateRentalAmount(eachRental))
                     .append("\n");
         }
         outputStatement
@@ -39,13 +39,13 @@ public class Customer {
                 .append("\n");
 
         outputStatement.append("You earned ")
-                .append(calcFrequentRenterPoints())
+                .append(calcFrequentRenterPoints(rentals))
                 .append(" frequent renter points");
 
         return outputStatement.toString();
     }
 
-    public String HtmlStatement() {
+    public String htmlStatement() {
         StringBuilder outputHtml = new StringBuilder("<h1>Rental Record for <b>");
         outputHtml.append(getCustomerName())
                 .append("</b></h1><p>");
@@ -54,7 +54,7 @@ public class Customer {
            outputHtml
                     .append(eachRental.getMovie().getMovieTitle())
                     .append(" <b>")
-                    .append(eachRental.calculateRentalAmount())
+                    .append(eachRental.movie.calculateRentalAmount(eachRental))
                     .append("</b><br>");
         }
         outputHtml
@@ -63,20 +63,18 @@ public class Customer {
                 .append("</b><br>");
         outputHtml
                 .append("You earned <b>")
-                .append(calcFrequentRenterPoints())
+                .append(calcFrequentRenterPoints(rentals))
                 .append("</b> frequent renter points</p>");
 
         return outputHtml.toString();
 
     }
 
-    private int calcFrequentRenterPoints() {
+    public int calcFrequentRenterPoints(List<Rental> rentals) {
         int frequentRenterPoints = 0;
         for (Rental rental : rentals){
             frequentRenterPoints++;
-            if ((rental.getMovie().getPriceCategory() == Movie.NEW_RELEASE)
-                    &&
-                    rental.getDaysRented() > 1) frequentRenterPoints++;
+            frequentRenterPoints = rental.getFrequentRenterPoints(frequentRenterPoints);
         }
         return frequentRenterPoints;
     }
@@ -85,7 +83,7 @@ public class Customer {
         double amount = 0;
 
         for (Rental rental : rentals){
-            amount += rental.calculateRentalAmount();
+            amount += rental.movie.calculateRentalAmount(rental);
         }
         return amount;
     }

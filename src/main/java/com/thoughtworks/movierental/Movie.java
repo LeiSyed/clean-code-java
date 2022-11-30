@@ -1,28 +1,31 @@
 package com.thoughtworks.movierental;
 
 public class Movie {
-    public static final int CHILDRENS = 2;
-    public static final int REGULAR = 0;
-    public static final int NEW_RELEASE = 1;
 
     private final String movieTitle;
-    private int priceCategory;
+    private Category category;
 
-    public Movie(String movieTitle, int priceCategory) {
+
+    public Movie(String movieTitle, Category category) {
         this.movieTitle = movieTitle;
-        this.priceCategory = priceCategory;
+        this.category = category;
     }
 
-    public int getPriceCategory() {
-        return priceCategory;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setPriceCategory(int priceCode) {
-        priceCategory = priceCode;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getMovieTitle() {
         return movieTitle;
     }
 
+    public double calculateRentalAmount(Rental rental) {
+        double rentalAmount = 0;
+        rentalAmount += category.amountFor(rental.getDaysRented());
+        return rentalAmount;
+    }
 }
